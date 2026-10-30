@@ -1,0 +1,678 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cano — Personal Website</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@300&display=swap');
+    * { box-sizing: border-box; }
+    h1, h2, h3, p { margin: 0; }
+    html { scroll-behavior: smooth; scroll-snap-type: y mandatory; }
+    body { margin: 0; background: #fff; color: #252525; font-family: Montserrat, Arial, sans-serif; overflow-x: hidden; }
+    .site { min-width: 1440px; }
+    .frame { position: relative; width: 1440px; height: 1024px; overflow: hidden; flex: none; background: #fff; }
+    .frame > * { z-index: 2; }
+    .frame, .partners-row { scroll-snap-align: start; scroll-snap-stop: always; }
+    .display { position: absolute; font-family: Anton, Impact, sans-serif; font-weight: 400; line-height: normal; white-space: nowrap; }
+    .line-art { position: absolute; display: block; pointer-events: none; }
+    #magic-line-group { position: fixed; left: 0; top: 0; width: 2891.5px; height: 248px; transform-origin: top left; z-index: 1; pointer-events: none; transition: transform 550ms cubic-bezier(.22,.72,.22,1); }
+    #magic-gray-line { position: absolute; left: 0; top: 0; width: 2891.5px; height: 248px; z-index: 0; }
+    .magic-pale-line { position: absolute; left: 0; width: 2891.5px; height: 128px; z-index: 1; opacity: 0; transition: opacity 180ms ease; }
+    .magic-pale-line img { position: absolute; left: 0; top: 0; width: auto; height: auto; max-width: none; transform-origin: top left; }
+    #magic-pale-p1 { top: 0; }
+    #magic-pale-p2 { top: 40px; }
+    #magic-pale-p3 { top: 80px; }
+    #magic-pale-p4 { top: 120px; }
+    #magic-pale-p2 img { transform: scale(.6757493213); }
+    #magic-pale-p3 img { transform: scale(.6034062983); }
+    #magic-pale-p4 img { transform: scale(.8184818646); }
+    @media (prefers-reduced-motion: reduce) { #magic-line-group, .magic-pale-line { transition: none; } }
+    .nav { position: absolute; z-index: 5; font-family: Anton, Impact, sans-serif; font-weight: 400; line-height: normal; color: white; }
+    .intro, .scroll-panel, .work-meta, .account-info, .fade { z-index: 0; }
+    .nav a { position: absolute; display: block; color: inherit; text-decoration: none; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 160ms ease; }
+    .nav a.nav-hover-active { opacity: 1; pointer-events: auto; }
+    body:not(.page-stationary) .nav a { opacity: 0 !important; pointer-events: none !important; transition: none; }
+    .nav .right { transform: translateX(-100%); text-align: right; }
+    .fade { position: absolute; left: 0; width: 1440px; height: 272px; background: linear-gradient(to bottom, transparent 0%, #fff 9.615%, #fff 100%); pointer-events: none; }
+    .frame111 .back { left: -1054px; top: 448px; width: 2891.5px; height: 248px; }
+    .frame111 .front { left: -1054px; top: 448px; width: 2891.5px; height: 128px; }
+    .frame111 .nav { top: 0; left: 0; font-size: 37px; }
+    .frame111 .home { left: 1408px; top: 436px; }
+    .frame111 .partners-link { left: 1408px; top: 476px; }
+    .frame111 .about-link { left: 1269px; top: 516px; }
+    .frame111 .works-link { left: 1408px; top: 556px; }
+    .frame111 .name { left: 166px; top: 124.84px; color: #252525; font-size: 329.412px; }
+    .frame111 .tagline { left: 830px; top: 294.13px; color: #bfbfbf; font-size: 50.489px; }
+    .frame111 .intro { position: absolute; left: 824px; width: 481.952px; color: #000; font-size: 16px; line-height: normal; }
+    .frame111 .intro-one { top: 288px; }
+    .frame111 .intro-two { top: 375px; }
+    .arrow-box { position: absolute; width: 524px; height: 112px; display: flex; justify-content: center; align-items: center; }
+    .arrow-box[href] { text-decoration: none; color: inherit; }
+    .arrow-box .arrow { position: static; color: #e5e5e5; font-size: 348.058px; transform: rotate(-90deg); }
+    .instruction { position: absolute; left: 620px; top: 857px; width: 828px; color: #e5e5e5; font: 400 61.697px/normal Anton, Impact, sans-serif; white-space: nowrap; }
+    .partners-row { width: 1440px; min-width: 1440px; height: 1024px; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scroll-behavior: smooth; }
+    .partners-track { display: flex; width: 2880px; height: 1024px; }
+    .partners-track > .frame { scroll-snap-align: start; scroll-snap-stop: always; }
+    .kanoxy .title, .cameo .title { top: 100px; color: #252525; font-size: 268.522px; }
+    .kanoxy .title { left: 118px; }
+    .cameo .title { left: 120px; }
+    .kanoxy .line { left: -2839px; top: 448px; width: 4279.954px; height: 367px; }
+    .kanoxy .line-overlay { left: -2839px; top: 507.19px; width: 4279.954px; height: 189.419px; }
+    .frame111 .back, .frame111 .front, .kanoxy .line, .kanoxy .line-overlay, .cameo .line-base, .cameo .line-overlay, .cano .line-base, .cano .line-overlay, .worksaccounts > .line-morph, .worksaccounts .works-pale-line { visibility: hidden; }
+    .scroll-panel { position: absolute; overflow: hidden; }
+    .scroll-content { position: absolute; inset: 0; overflow-y: auto; overscroll-behavior-y: auto; scrollbar-width: thin; scrollbar-color: #bfbfbf transparent; }
+    .scroll-fade { position: absolute; left: 0; right: 0; bottom: 0; height: 32px; background: linear-gradient(to bottom, rgba(255,255,255,0), #fff); opacity: 0; pointer-events: none; transition: opacity 160ms ease; }
+    .scroll-panel:hover:not(.is-at-end) .scroll-fade, .scroll-panel:focus-within:not(.is-at-end) .scroll-fade { opacity: 1; }
+    .kanoxy .bio-panel { left: 928px; top: 272px; width: 422px; height: 180px; }
+    .kanoxy .bio { color: #000; font-size: 16px; line-height: normal; white-space: pre-line; }
+    .kanoxy .fade { top: 416px; }
+    .kanoxy .arrow-simple { left: 1238px; top: 568px; color: #e5e5e5; font-size: 348.058px; }
+    .kanoxy .nav { font-size: 55px; }
+    .kanoxy .home, .cameo .home { left: 1378px; top: 430px; }
+    .kanoxy .partners-link, .cameo .partners-link { left: 1377px; top: 490px; }
+    .kanoxy .about-link, .cameo .about-link { left: 1173px; top: 549px; }
+    .kanoxy .works-link, .cameo .works-link { left: 1378px; top: 608px; }
+    .cameo .nav { font-size: 55px; }
+    .cameo .line-base { left: -2839px; top: 448px; width: 4279.954px; height: 367px; }
+    .cameo .line-overlay { left: -2839px; top: 507.19px; width: 4279.954px; height: 189.419px; }
+    .cameo .bio-panel { left: 896px; top: 272px; width: 422px; height: 96px; }
+    .cameo .bio { color: #000; font-size: 16px; line-height: normal; white-space: pre-line; }
+    .cameo .arrow-box { left: 969px; top: 762px; }
+    .cameo .instruction { z-index: 2; }
+    .cano .title { left: 117px; top: 106px; color: #252525; font-size: 354.987px; }
+    .cano .line-base { left: -2047.15px; top: 421px; width: 4791.962px; height: 411px; }
+    .cano .line-overlay { left: -2047.15px; top: 553.58px; width: 4791.962px; height: 212.129px; }
+    .cano .fade { top: 368px; }
+    .cano .copy-panel { left: 830px; top: 271px; width: 509px; height: 110px; }
+    .cano .copy-content { color: #000; font-size: 16px; line-height: normal; }
+    .cano .bio { width: 509px; }
+    .cano .timeline { position: static; width: 481.952px; margin-top: 18px; font-size: 16px; line-height: 25px; color: #000; white-space: pre-line; }
+    .cano .nav { font-size: 62px; }
+    .cano .home { left: 1378px; top: 401px; }
+    .cano .partners-link { left: 1378px; top: 467px; }
+    .cano .about-link { left: 1148px; top: 534px; }
+    .cano .works-link { left: 1378px; top: 600px; }
+    .cano .arrow-box { left: 969px; top: 762px; }
+    .worksaccounts > .works-pale-line { left: -881px; top: 242.613px; width: 3532.76px; height: 156.387px; }
+    .worksaccounts > .works .works-pale-line { left: -637px; }
+    .worksaccounts > .account .works-pale-line { left: -1122px; }
+    .worksaccounts .arrow-morph { left: 438px; top: 26px; z-index: 5; text-decoration: none; color: inherit; transition: transform 780ms cubic-bezier(.22,.72,.22,1); }
+    .worksaccounts .works-title { left: 80px; top: 367px; font-size: 150.017px; }
+    .worksaccounts .accounts-title { left: 870px; top: 394px; font-size: 127.355px; }
+    .worksaccounts .w-image { position: absolute; object-fit: cover; }
+    .worksaccounts .image-one { left: 96px; top: 576px; width: 341.333px; height: 192px; }
+    .worksaccounts .image-two { left: 96px; top: 800px; width: 341.333px; height: 192px; }
+    .worksaccounts .image-three { left: 97px; top: 1024px; width: 341px; height: 221.722px; }
+    .worksaccounts .work-name { position: absolute; left: 447px; color: #252525; font-size: 44px; }
+    .worksaccounts .work-meta { position: absolute; left: 448px; width: 309.788px; color: #252525; font-size: 10.284px; line-height: normal; }
+    .worksaccounts .work-name.one { top: 588px; }
+    .worksaccounts .meta.one { top: 649px; }
+    .worksaccounts .work-name.two { top: 812px; }
+    .worksaccounts .meta.two { top: 873px; }
+    .worksaccounts .work-name.three { top: 1036px; }
+    .worksaccounts .meta.three { top: 1097px; }
+    .worksaccounts .account-title { position: absolute; left: 870px; top: 394px; width: 500px; font: 400 127.355px/normal Anton, Impact, sans-serif; }
+    .worksaccounts .account-name { position: absolute; left: 1087px; font: 400 72px/normal Anton, Impact, sans-serif; }
+    .worksaccounts .account-info { position: absolute; left: 1087px; width: 309.788px; font-size: 16px; line-height: normal; color: #252525; }
+    .worksaccounts .account-name.cano-name { top: 556px; left: 1206px; }
+    .worksaccounts .account-info.cano-info { top: 657px; }
+    .worksaccounts .account-name.kanoxy-name { top: 717px; left: 1140px; }
+    .worksaccounts .account-info.kanoxy-info { top: 816px; }
+    .worksaccounts .account-name.cubist-name { top: 876px; left: 1165px; }
+    .worksaccounts .account-info.cubist-info { top: 976px; }
+    .worksaccounts[data-view="works"] > :not(.works):not(.account),
+    .worksaccounts[data-view="accounts"] > :not(.works):not(.account) { visibility: hidden; }
+    .worksaccounts[data-view] > .arrow-morph { visibility: visible !important; }
+    .worksaccounts[data-view="works"] > .arrow-morph { transform: translate3d(246px, 0, 0); }
+    .worksaccounts[data-view="accounts"] > .arrow-morph { transform: translate3d(-242px, 0, 0); }
+    .worksaccounts > .works .line,
+    .worksaccounts > .account .line { display: none; }
+    .worksaccounts > .works .arrow-box,
+    .worksaccounts > .account .arrow-box { display: none; }
+    .worksaccounts > .works, .worksaccounts > .account { position: absolute; left: 0; top: 0; display: none; z-index: auto; background: transparent; }
+    .worksaccounts[data-view="works"] > .works,
+    .worksaccounts[data-view="accounts"] > .account { display: block; }
+    .worksaccounts .fade-bottom, .works .fade-bottom, .account .fade-bottom { top: 896px; z-index: 3; }
+    .works .line, .account .line { top: 96px; width: 3532.76px; height: 303px; }
+    .works .line { left: -637px; }
+    .account .line { left: -1122px; }
+    @media (prefers-reduced-motion: reduce) {
+      .worksaccounts .arrow-morph { transition: none; }
+    }
+    .works .arrow-box { left: 684px; top: 26px; }
+    .account .arrow-box { left: 196px; top: 25px; }
+    .works .w-title { left: 78px; top: 81px; width: 429.213px; font-size: 170.051px; }
+    .account .w-title { left: 64px; top: 409px; font-size: 129.541px; }
+    .work-poster { position: absolute; left: 96px; object-fit: cover; }
+    .w-image, .work-poster { filter: grayscale(1) brightness(1.1); }
+    .works .poster-one { top: 302.62px; width: 426.524px; height: 239.92px; }
+    .works .poster-two { top: 582.53px; width: 426.524px; height: 239.92px; }
+    .works .poster-three { left: 97.25px; top: 862.44px; width: 426.108px; height: 277.06px; }
+    .works .work-name { position: absolute; left: 534.6px; font-size: 54.982px; }
+    .works .work-meta { position: absolute; left: 535.85px; width: 387.106px; font-size: 12.851px; line-height: normal; }
+    .works .work-name.one { top: 317.62px; }
+    .works .meta.one { top: 393.84px; }
+    .works .work-name.two { top: 597.52px; left: 534.6px; }
+    .works .meta.two { top: 673.75px; }
+    .works .work-name.three { top: 877.43px; left: 533.35px; }
+    .works .meta.three { top: 953.65px; }
+    .works .account-title { left: 960px; top: 448px; font-size: 103.242px; }
+    .works .account-name { position: absolute; left: 1233.47px; font: 400 58.368px/normal Anton, Impact, sans-serif; }
+    .works .account-info { position: absolute; left: 1151px; width: 251.134px; font-size: 12.971px; line-height: normal; }
+    .works .account-name.cano-name { top: 613px; }
+    .works .account-info.cano-info { top: 695px; }
+    .works .account-name.kanoxy-name { left: 1179.97px; top: 743.52px; }
+    .works .account-info.kanoxy-info { top: 824px; }
+    .works .account-name.cubist-name { left: 1200.23px; top: 872.41px; }
+    .works .account-info.cubist-info { top: 953px; }
+    .works .work-scroll-panel { left: 96px; top: 302.62px; width: 827px; height: 593.38px; }
+    .works .work-scroll-panel { z-index: auto; }
+    .works .work-poster, .works .work-name { z-index: 2; }
+    .works .work-scroll-inner { position: relative; width: 827px; height: 710px; }
+    .works .work-scroll-content .work-poster { left: 0; }
+    .works .work-scroll-content .poster-one { top: 0; }
+    .works .work-scroll-content .poster-two { top: 279.91px; }
+    .works .work-scroll-content .poster-three { left: 1.25px; top: 559.82px; }
+    .works .work-scroll-content .work-name { left: 438.6px; }
+    .works .work-scroll-content .work-name.one { top: 15px; }
+    .works .work-scroll-content .work-name.two { top: 294.9px; }
+    .works .work-scroll-content .work-name.three { left: 437.35px; top: 574.81px; }
+    .works .work-scroll-content .work-meta { left: 439.85px; }
+    .works .work-scroll-content .meta.one { top: 91.22px; }
+    .works .work-scroll-content .meta.two { top: 371.13px; }
+    .works .work-scroll-content .meta.three { top: 651.03px; }
+    .account .account-scroll-panel { left: 830px; top: 303px; width: 610px; height: 593px; }
+    .account .account-scroll-inner { position: relative; width: 610px; height: 634px; }
+    .account .account-scroll-inner .account-name.cano-name { left: 325.87px; top: 0; }
+    .account .account-scroll-inner .account-info.cano-info { left: 64px; top: 130px; }
+    .account .account-scroll-inner .account-name.kanoxy-name { left: 237.76px; top: 214.94px; }
+    .account .account-scroll-inner .account-info.kanoxy-info { left: 64px; top: 354px; }
+    .account .account-scroll-inner .account-name.cubist-name { left: 271.13px; top: 427.2px; }
+    .account .account-scroll-inner .account-info.cubist-info { left: 63px; top: 578px; }
+    .account .arrow-box { z-index: 2; }
+    .account .w-title { position: absolute; }
+    .account .poster-one { left: 77.82px; top: 589.47px; width: 294.743px; height: 165.793px; }
+    .account .poster-two { left: 77.82px; top: 782.9px; width: 294.743px; height: 165.793px; }
+    .account .poster-three { left: 78.68px; top: 976.32px; width: 294.455px; height: 191.458px; }
+    .account .work-name { position: absolute; left: 380.91px; font-size: 37.994px; }
+    .account .work-meta { position: absolute; left: 381.77px; width: 267.503px; font-size: 8.881px; line-height: normal; }
+    .account .work-name.one { top: 599.83px; }
+    .account .meta.one { top: 652.51px; }
+    .account .work-name.two { top: 793.26px; left: 380.91px; }
+    .account .meta.two { top: 845.93px; }
+    .account .work-name.three { top: 986.68px; left: 380.04px; }
+    .account .meta.three { top: 1039.36px; }
+    .account .account-title { position: absolute; left: 712px; top: 81px; font: 400 170.019px/normal Anton, Impact, sans-serif; }
+    .account .account-name { position: absolute; font: 400 96.12px/normal Anton, Impact, sans-serif; }
+    .account .account-info { position: absolute; width: 413.569px; font-size: 21.36px; line-height: normal; }
+    .account .account-name.cano-name { left: 1155.87px; top: 303px; }
+    .account .account-info.cano-info { left: 894px; top: 433px; }
+    .account .account-name.kanoxy-name { left: 1067.76px; top: 517.94px; }
+    .account .account-info.kanoxy-info { left: 894px; top: 657px; }
+    .account .account-name.cubist-name { left: 1101.13px; top: 730.2px; }
+    .account .account-info.cubist-info { left: 893px; top: 881px; }
+  </style>
+</head>
+<body>
+  <main class="site">
+    <section class="frame frame111" id="home" aria-label="Home">
+      <p class="intro intro-one">-Here is a website for me and my partners,</p>
+      <p class="intro intro-two">-I'm training to become a dancer,<br>&nbsp;while exploring design.</p>
+      <img class="line-art back" src="for%20coding/frame111-T1.svg" alt="">
+      <img class="line-art front" src="for%20coding/frame111-P1.svg" alt="">
+      <nav class="nav" aria-label="Main navigation">
+        <a class="right home" href="#home">HOME</a><a class="right partners-link" href="#kanoxy">MY PARTNERS</a><a class="about-link" href="#cano">ABOUT ME</a><a class="right works-link" href="#worksaccounts">WORKS &amp; ACCOUNTS</a>
+      </nav>
+      <h1 class="display name">Cano</h1>
+      <p class="display tagline">Kanoxy &amp; Cameo.</p>
+      <div class="arrow-box" style="left:969px;top:762px"><span class="display arrow">&gt;</span></div>
+      <p class="instruction">CLICK the LINE to select pages</p>
+    </section>
+
+    <section class="partners-row" id="partners" aria-label="My partners">
+      <div class="partners-track">
+        <article class="frame kanoxy" id="kanoxy" aria-label="Kanoxy">
+          <div class="scroll-panel bio-panel">
+            <div class="scroll-content bio" tabindex="0" aria-label="Kanoxy introduction; scroll to read">#furry dancer
+
+- <strong>2024</strong> — I created my social media account alongside Cano.
+  I share popular choreography and dance culture on these accounts.
+
+- <strong>2025</strong> — I joined an experimental dance troupe.
+  We’ve collaborated for one year and performed on stage four times.
+
+- <strong>2026</strong> — I built <strong>CUBiST</strong>, a furry dance crew.
+  We’re trying to do something new and better together.</div>
+            <div class="scroll-fade" aria-hidden="true"></div>
+          </div>
+          <span class="display arrow-simple">&gt;</span>
+          <div class="fade"></div>
+          <img class="line-art line" src="for%20coding/kanoxy-lines.svg" alt="">
+          <img class="line-art line-overlay" src="for%20coding/cameo-lines-overlay.svg" alt="">
+          <h2 class="display title">Kanoxy</h2>
+          <nav class="nav" aria-label="Main navigation">
+            <a class="right home" href="#home">HOME</a><a class="right partners-link" href="#kanoxy">MY PARTNERS</a><a class="about-link" href="#cano">ABOUT ME</a><a class="right works-link" href="#worksaccounts">WORKS &amp; ACCOUNTS</a>
+          </nav>
+        </article>
+        <article class="frame cameo" id="cameo" aria-label="Cameo">
+          <div class="scroll-panel bio-panel">
+            <div class="scroll-content bio" tabindex="0" aria-label="Cameo introduction; scroll to read">#furry dancer #mute
+
+I do something lyrical and express emotion through movement with Cano.
+We grew up together under the same roof.
+My account will coming soon.</div>
+            <div class="scroll-fade" aria-hidden="true"></div>
+          </div>
+          <img class="line-art line-base" src="for%20coding/cameo-lines-base.svg" alt="">
+          <img class="line-art line-overlay" src="for%20coding/cameo-lines-overlay.svg" alt="">
+          <nav class="nav" aria-label="Main navigation">
+            <a class="right home" href="#home">HOME</a><a class="right partners-link" href="#kanoxy">MY PARTNERS</a><a class="about-link" href="#cano">ABOUT ME</a><a class="right works-link" href="#worksaccounts">WORKS &amp; ACCOUNTS</a>
+          </nav>
+          <h2 class="display title">Cameo</h2>
+          <div class="arrow-box"><span class="display arrow">&gt;</span></div>
+          <p class="instruction">CLICK the LINE to select pages</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="frame cano" id="cano" aria-label="About me">
+      <div class="scroll-panel copy-panel">
+        <div class="scroll-content copy-content" tabindex="0" aria-label="Cano introduction and timeline; scroll to read">
+          <div class="bio">Kanoxy and Cameo represent my different identities.<br>Their presence can help me present some of my work.</div>
+          <div class="timeline"><strong>2025.09.14</strong> — Started learning dance at G-STEPS in Beijing.<br><strong>2026.04.10</strong> — Joined ZAHANOVA in Beijing.<br><strong>2026.06.14</strong> — Joined TeaMerge in Beijing.</div>
+        </div>
+        <div class="scroll-fade" aria-hidden="true"></div>
+      </div>
+      <div class="fade"></div>
+      <img class="line-art line-base" src="for%20coding/cano-lines-base.svg" alt="">
+      <img class="line-art line-overlay" src="for%20coding/cano-lines-overlay.svg" alt="">
+      <h2 class="display title">Cano</h2>
+      <nav class="nav" aria-label="Main navigation">
+        <a class="right home" href="#home">HOME</a><a class="right partners-link" href="#kanoxy">MY PARTNERS</a><a class="about-link" href="#cano">ABOUT ME</a><a class="right works-link" href="#worksaccounts">WORKS &amp; ACCOUNTS</a>
+      </nav>
+      <div class="arrow-box"><span class="display arrow">&gt;</span></div>
+      <p class="instruction">CLICK the LINE to select pages</p>
+    </section>
+
+    <section class="frame worksaccounts" id="worksaccounts" aria-label="Works and accounts">
+      <div class="work-meta meta one">Reol — ヒビカセ<br>振付：ATY</div>
+      <div class="work-meta meta two">YOASOBI — アイドル<br>振付：アナタシア公式</div>
+      <div class="work-meta meta three">プロダクション体育館 / 超学生 — HIDE&amp;SEEK (feat. 超学生)<br>振付：プロダクション体育館</div>
+      <div class="account-info cano-info">Bilibili: @CAN灿是耗子O<br>Douyin: @CAN灿是耗子O</div>
+      <div class="account-info kanoxy-info">Bilibili: @灲Kano_xy<br>Douyin: @灲Kano_xy</div>
+      <div class="account-info cubist-info">Bilibili: @CUBiST_Official<br>Douyin: @CUBiST_Official</div>
+
+      <img class="line-art works-pale-line" src="for%20coding/works-pale-bottom.svg" alt="">
+      <a class="arrow-box arrow-morph" href="#home" aria-label="Return to homepage"><span class="display arrow">&gt;</span></a>
+      <h2 class="display works-title">Works</h2><h2 class="display accounts-title">Accounts</h2>
+      <img class="w-image image-one" src="for%20coding/work-kanoxy.jpg" alt="Kanoxy dance cover">
+      <img class="w-image image-two" src="for%20coding/work-idol.jpg" alt="CUBiST dance cover">
+      <img class="w-image image-three" src="for%20coding/work-hide-seek.jpg" alt="CUBiST HIDE&amp;SEEK dance cover">
+      <h3 class="display work-name one">Kanoxy</h3><h3 class="display work-name two">CUBiST</h3><h3 class="display work-name three">CUBiST</h3><h2 class="account-title">Accounts</h2>
+      <h3 class="account-name cano-name">Cano</h3><h3 class="account-name kanoxy-name">Kanoxy</h3><h3 class="account-name cubist-name">CUBiST</h3><div class="fade fade-bottom"></div>
+    </section>
+
+    <section class="frame works" id="works" aria-label="Works">
+      <div class="account-info cano-info">Bilibili: @CAN灿是耗子O<br>Douyin: @CAN灿是耗子O</div>
+      <div class="account-info kanoxy-info">Bilibili: @灲Kano_xy<br>Douyin: @灲Kano_xy</div>
+      <div class="account-info cubist-info">Bilibili: @CUBiST_Official<br>Douyin: @CUBiST_Official</div>
+
+      <img class="line-art line" src="for%20coding/works-lines.svg" alt="">
+      <img class="line-art works-pale-line" src="for%20coding/works-pale-bottom.svg" alt="">
+      <div class="arrow-box"><span class="display arrow">&gt;</span></div>
+      <h2 class="display w-title">Works</h2>
+      <div class="scroll-panel work-scroll-panel">
+        <div class="scroll-content work-scroll-content" tabindex="0" aria-label="Works list; scroll to browse">
+          <div class="work-scroll-inner">
+            <img class="work-poster poster-one" src="for%20coding/work-kanoxy.jpg" alt="Kanoxy dance cover">
+            <img class="work-poster poster-two" src="for%20coding/work-idol.jpg" alt="CUBiST dance cover">
+            <img class="work-poster poster-three" src="for%20coding/work-hide-seek.jpg" alt="CUBiST HIDE&amp;SEEK dance cover">
+            <h3 class="display work-name one">Kanoxy</h3><h3 class="display work-name two">CUBiST</h3><h3 class="display work-name three">CUBiST</h3>
+            <div class="work-meta meta one">Reol — ヒビカセ<br>振付：ATY</div>
+            <div class="work-meta meta two">YOASOBI — アイドル<br>振付：アナタシア公式</div>
+            <div class="work-meta meta three">プロダクション体育館 / 超学生 — HIDE&amp;SEEK (feat. 超学生)<br>振付：プロダクション体育館</div>
+          </div>
+        </div>
+        <div class="scroll-fade" aria-hidden="true"></div>
+      </div>
+      <h3 class="display account-title">Accounts</h3>
+      <h3 class="account-name cano-name">Cano</h3><h3 class="account-name kanoxy-name">Kanoxy</h3><h3 class="account-name cubist-name">CUBiST</h3>
+    </section>
+
+    <section class="frame account" id="account" aria-label="Accounts">
+      <div class="work-meta meta one">Reol — ヒビカセ<br>振付：ATY</div>
+      <div class="work-meta meta two">YOASOBI — アイドル<br>振付：アナタシア公式</div>
+      <div class="work-meta meta three">プロダクション体育館 / 超学生 — HIDE&amp;SEEK (feat. 超学生)<br>振付：プロダクション体育館</div>
+
+      <img class="line-art line" src="for%20coding/account-lines.svg" alt="">
+      <img class="line-art works-pale-line" src="for%20coding/works-pale-bottom.svg" alt="">
+      <div class="arrow-box"><span class="display arrow">&gt;</span></div>
+      <h2 class="display w-title">Works</h2>
+      <img class="work-poster poster-one" src="for%20coding/work-kanoxy.jpg" alt="Kanoxy dance cover">
+      <img class="work-poster poster-two" src="for%20coding/work-idol.jpg" alt="CUBiST dance cover">
+      <img class="work-poster poster-three" src="for%20coding/work-hide-seek.jpg" alt="CUBiST HIDE&amp;SEEK dance cover">
+      <h3 class="display work-name one">Kanoxy</h3><h3 class="display work-name two">CUBiST</h3><h3 class="display work-name three">CUBiST</h3><h3 class="account-title">Accounts</h3>
+      <div class="scroll-panel account-scroll-panel">
+        <div class="scroll-content account-scroll-content" tabindex="0" aria-label="Accounts list; scroll to browse">
+          <div class="account-scroll-inner">
+            <h3 class="account-name cano-name">Cano</h3><div class="account-info cano-info">Bilibili: @CAN灿是耗子O<br>Douyin: @CAN灿是耗子O</div>
+            <h3 class="account-name kanoxy-name">Kanoxy</h3><div class="account-info kanoxy-info">Bilibili: @灲Kano_xy<br>Douyin: @灲Kano_xy</div>
+            <h3 class="account-name cubist-name">CUBiST</h3><div class="account-info cubist-info">Bilibili: @CUBiST_Official<br>Douyin: @CUBiST_Official</div>
+          </div>
+        </div>
+        <div class="scroll-fade" aria-hidden="true"></div>
+      </div>
+    </section>
+  </main>
+  <div id="magic-line-group" aria-hidden="true">
+    <img id="magic-gray-line" src="for%20coding/frame111-T1.svg" alt="">
+    <div id="magic-pale-p1" class="magic-pale-line"><img src="for%20coding/frame111-P1.svg" alt=""></div>
+    <div id="magic-pale-p2" class="magic-pale-line"><img src="for%20coding/cameo-lines-overlay.svg" alt=""></div>
+    <div id="magic-pale-p3" class="magic-pale-line"><img src="for%20coding/cano-lines-overlay.svg" alt=""></div>
+    <div id="magic-pale-p4" class="magic-pale-line"><img src="for%20coding/works-pale-bottom.svg" alt=""></div>
+  </div>
+  <script>
+    let pageIsStationary = false;
+    let lastPointerPosition = null;
+    function clearLineHover() {
+      document.querySelectorAll('.nav a.nav-hover-active').forEach((link) => link.classList.remove('nav-hover-active'));
+    }
+    function setPageStationary(stationary) {
+      pageIsStationary = stationary;
+      document.body.classList.toggle('page-stationary', stationary);
+      if (stationary) refreshLineHover();
+      else clearLineHover();
+    }
+    const lineHoverFrames = [
+      ['home', { home: [436, 476], 'partners-link': [476, 516], 'about-link': [516, 556], 'works-link': [556, 596] }],
+      ['kanoxy', { home: [430, 490], 'partners-link': [490, 549], 'about-link': [549, 608], 'works-link': [608, 668] }],
+      ['cameo', { home: [430, 490], 'partners-link': [490, 549], 'about-link': [549, 608], 'works-link': [608, 668] }],
+      ['cano', { home: [401, 467], 'partners-link': [467, 534], 'about-link': [534, 600], 'works-link': [600, 666] }]
+    ];
+    function updateFrameLineHover(frame, clientY) {
+      const frameTop = frame.getBoundingClientRect().top;
+      const y = clientY - frameTop;
+      const bands = lineHoverFrames.find(([id]) => frame.id === id)?.[1];
+      frame.querySelectorAll('.nav a').forEach((link) => {
+        const band = Object.entries(bands || {}).find(([className]) => link.classList.contains(className))?.[1];
+        link.classList.toggle('nav-hover-active', Boolean(pageIsStationary && band && y >= band[0] && y < band[1]));
+      });
+    }
+    function refreshLineHover() {
+      if (!pageIsStationary || !lastPointerPosition) return;
+      lineHoverFrames.forEach(([id]) => {
+        const frame = document.getElementById(id);
+        const rect = frame.getBoundingClientRect();
+        if (lastPointerPosition.x >= rect.left && lastPointerPosition.x < rect.right && lastPointerPosition.y >= rect.top && lastPointerPosition.y < rect.bottom) {
+          updateFrameLineHover(frame, lastPointerPosition.y);
+        } else {
+          frame.querySelectorAll('.nav a.nav-hover-active').forEach((link) => link.classList.remove('nav-hover-active'));
+        }
+      });
+    }
+    lineHoverFrames.forEach(([id]) => {
+      const frame = document.getElementById(id);
+      frame.addEventListener('pointermove', (event) => {
+        lastPointerPosition = { x: event.clientX, y: event.clientY };
+        updateFrameLineHover(frame, event.clientY);
+      });
+      frame.addEventListener('pointerleave', (event) => {
+        lastPointerPosition = { x: event.clientX, y: event.clientY };
+        frame.querySelectorAll('.nav a').forEach((link) => link.classList.remove('nav-hover-active'));
+      });
+    });
+
+    function updateScrollPanelFade(panel) {
+      const content = panel.querySelector('.scroll-content');
+      const updateFade = () => panel.classList.toggle('is-at-end', content.clientHeight > 0 && content.scrollTop + content.clientHeight >= content.scrollHeight - 1);
+      return updateFade;
+    }
+
+    document.querySelectorAll('.scroll-panel').forEach((panel) => {
+      const content = panel.querySelector('.scroll-content');
+      const updateFade = updateScrollPanelFade(panel);
+      content.addEventListener('scroll', updateFade, { passive: true });
+      updateFade();
+    });
+
+    function resetScrollablePanels(container) {
+      if (!container) return;
+      container.querySelectorAll('.scroll-panel .scroll-content').forEach((content) => {
+        content.scrollTop = 0;
+        updateScrollPanelFade(content.closest('.scroll-panel'))();
+      });
+    }
+    document.querySelectorAll('.frame').forEach((frame) => {
+      frame.addEventListener('pointerleave', () => resetScrollablePanels(frame));
+    });
+
+    const worksAccounts = document.getElementById('worksaccounts');
+    const worksVariant = document.getElementById('works');
+    const accountsVariant = document.getElementById('account');
+    worksAccounts.append(worksVariant, accountsVariant);
+    worksAccounts.dataset.view = 'both';
+    const grayLineTargets = {
+      home: { frame: document.getElementById('home'), x: -1054, y: 448, w: 2891.5, h: 248 },
+      kanoxy: { frame: document.getElementById('kanoxy'), x: -2839, y: 448, w: 4279.954, h: 367 },
+      cameo: { frame: document.getElementById('cameo'), x: -2839, y: 448, w: 4279.954, h: 367 },
+      cano: { frame: document.getElementById('cano'), x: -2047.148, y: 421, w: 4791.962, h: 411 },
+      worksaccounts: { frame: worksAccounts, x: -881, y: 96, w: 3532.76, h: 303 },
+      works: { frame: worksAccounts, x: -637, y: 96, w: 3532.76, h: 303 },
+      accounts: { frame: worksAccounts, x: -1122, y: 96, w: 3532.76, h: 303 }
+    };
+    const magicGrayLine = document.getElementById('magic-line-group');
+    const paleLineLayers = ['p1', 'p2', 'p3', 'p4'].map((id) => document.getElementById(`magic-pale-${id}`));
+    const paleLineStates = {
+      home: [1, 0, 0, 0],
+      partners: [0, 1, 0, 0],
+      cameo: [0, 1, 0, 0],
+      kanoxy: [0, 1, 0, 0],
+      cano: [0, 0, 1, 0],
+      worksaccounts: [0, 0, 0, 1],
+      works: [0, 0, 0, 1],
+      accounts: [0, 0, 0, 1]
+    };
+    function setPaleLineBlend(fromName, toName, progress) {
+      const from = paleLineStates[fromName] || paleLineStates.home;
+      const to = paleLineStates[toName] || paleLineStates.home;
+      paleLineLayers.forEach((layer, index) => {
+        layer.style.transition = 'none';
+        layer.style.opacity = String(from[index] + (to[index] - from[index]) * progress);
+      });
+    }
+    function setPaleLinePage(name) {
+      const state = paleLineStates[name] || paleLineStates.home;
+      paleLineLayers.forEach((layer, index) => {
+        layer.style.transition = '';
+        layer.style.opacity = String(state[index]);
+      });
+    }
+    function moveMagicGrayLine(targetName) {
+      const target = grayLineTargets[targetName];
+      if (!target) return;
+      const rect = target.frame.getBoundingClientRect();
+      magicGrayLine.style.transform = `translate3d(${rect.left + target.x}px, ${rect.top + target.y}px, 0) scale(${target.w / 2891.5}, ${target.h / 248})`;
+      setPaleLinePage(targetName);
+    }
+    function moveMagicGrayLineForPage(page) {
+      if (page.id === 'partners') {
+        moveMagicGrayLine(Math.round(partners.scrollLeft / partnerWidth) === 0 ? 'kanoxy' : 'cameo');
+      } else if (page.id === 'worksaccounts') {
+        const view = worksAccounts.dataset.view;
+        moveMagicGrayLine(view === 'works' || view === 'accounts' ? view : 'worksaccounts');
+      } else if (page.id === 'home' || page.id === 'cano') {
+        moveMagicGrayLine(page.id);
+      }
+    }
+    function setWorksAccountsView(view) {
+      const previousView = worksAccounts.dataset.view;
+      if (previousView === view) return;
+      if (previousView === 'works') resetScrollablePanels(worksVariant);
+      if (previousView === 'accounts') resetScrollablePanels(accountsVariant);
+      worksAccounts.dataset.view = view;
+      moveMagicGrayLine(view === 'works' || view === 'accounts' ? view : 'worksaccounts');
+    }
+    worksAccounts.addEventListener('pointermove', (event) => {
+      const position = (event.clientX - worksAccounts.getBoundingClientRect().left) / worksAccounts.clientWidth;
+      if (event.target.closest('.work-scroll-panel')) {
+        setWorksAccountsView('works');
+        requestAnimationFrame(() => updateScrollPanelFade(worksAccounts.querySelector('.work-scroll-panel'))());
+      } else if (event.target.closest('.account-scroll-panel')) {
+        setWorksAccountsView('accounts');
+        requestAnimationFrame(() => updateScrollPanelFade(worksAccounts.querySelector('.account-scroll-panel'))());
+      } else {
+        setWorksAccountsView(position < 1 / 3 ? 'works' : position > 2 / 3 ? 'accounts' : 'both');
+      }
+    });
+    worksAccounts.addEventListener('pointerleave', () => {
+      resetScrollablePanels(worksVariant);
+      resetScrollablePanels(accountsVariant);
+      setWorksAccountsView('both');
+    });
+
+    const partners = document.getElementById('partners');
+    const partnerWidth = 1440;
+    let partnerAligned = false;
+    let settleTimer;
+    const partnerFrames = Array.from(partners.querySelectorAll('.partners-track > .frame'));
+    let previousPartnerIndex = Math.round(partners.scrollLeft / partnerWidth);
+    let previousScrollY = window.scrollY;
+
+    function isPartnerSectionActive() {
+      return Math.abs(partners.getBoundingClientRect().top) < 8;
+    }
+
+    function settlePartnerPage() {
+      window.clearTimeout(settleTimer);
+      settleTimer = window.setTimeout(() => {
+        if (!isPartnerSectionActive()) {
+          partnerAligned = false;
+          return;
+        }
+        const left = partners.scrollLeft;
+        const snapPoints = [0, partnerWidth];
+        const nearest = snapPoints.reduce((best, point) =>
+          Math.abs(point - left) < Math.abs(best - left) ? point : best, snapPoints[0]);
+        if (Math.abs(nearest - left) > 2) {
+          partners.scrollTo({ left: nearest, behavior: 'smooth' });
+          return;
+        }
+        partnerAligned = true;
+        setPageStationary(true);
+      }, 180);
+    }
+
+    partners.addEventListener('scroll', () => {
+      setPageStationary(false);
+      partnerAligned = false;
+      syncGrayLineWithPageScroll();
+      settlePartnerPage();
+    }, { passive: true });
+    partners.addEventListener('scrollend', settlePartnerPage, { passive: true });
+    partners.addEventListener('scrollend', () => {
+      const currentPartnerIndex = Math.round(partners.scrollLeft / partnerWidth);
+      if (currentPartnerIndex !== previousPartnerIndex) {
+        resetScrollablePanels(partnerFrames[previousPartnerIndex]);
+        previousPartnerIndex = currentPartnerIndex;
+      }
+      if (isPartnerSectionActive()) moveMagicGrayLine(currentPartnerIndex === 0 ? 'kanoxy' : 'cameo');
+    }, { passive: true });
+
+    window.addEventListener('scroll', () => {
+      setPageStationary(false);
+      const currentY = window.scrollY;
+      const partnerTop = partners.getBoundingClientRect().top + currentY;
+      if (previousScrollY < partnerTop && currentY >= partnerTop - 2) {
+        partners.scrollLeft = 0;
+        partnerAligned = false;
+        settlePartnerPage();
+      }
+      if (isPartnerSectionActive()) settlePartnerPage();
+      previousScrollY = currentY;
+    }, { passive: true });
+    const verticalPages = Array.from(document.querySelectorAll('main.site > .frame, main.site > .partners-row'));
+    const getVerticalPage = () => verticalPages.reduce((closest, page) =>
+      Math.abs(page.getBoundingClientRect().top) < Math.abs(closest.getBoundingClientRect().top) ? page : closest,
+    verticalPages[0]);
+    let previousVerticalPage = getVerticalPage();
+    function getVerticalLineTarget(page) {
+      if (page.id === 'partners') {
+        return grayLineTargets[Math.round(partners.scrollLeft / partnerWidth) === 0 ? 'kanoxy' : 'cameo'];
+      }
+      if (page.id === 'worksaccounts') return grayLineTargets.worksaccounts;
+      return grayLineTargets[page.id] || grayLineTargets.home;
+    }
+    function syncGrayLineWithPageScroll() {
+      const scrollY = window.scrollY;
+      const starts = verticalPages.map((page) => page.getBoundingClientRect().top + scrollY);
+      let index = 0;
+      while (index < starts.length - 1 && scrollY >= starts[index + 1]) index++;
+      const nextIndex = Math.min(index + 1, verticalPages.length - 1);
+      const distance = starts[nextIndex] - starts[index];
+      const progress = distance > 0 ? Math.max(0, Math.min(1, (scrollY - starts[index]) / distance)) : 0;
+      const from = getVerticalLineTarget(verticalPages[index]);
+      const to = getVerticalLineTarget(verticalPages[nextIndex]);
+      const mix = (key) => from[key] + (to[key] - from[key]) * progress;
+      magicGrayLine.style.transition = 'none';
+      magicGrayLine.style.transform = `translate3d(${mix('x')}px, ${mix('y')}px, 0) scale(${mix('w') / 2891.5}, ${mix('h') / 248})`;
+      const fromPage = verticalPages[index].id === 'partners' ? 'partners' : verticalPages[index].id;
+      const toPage = verticalPages[nextIndex].id === 'partners' ? 'partners' : verticalPages[nextIndex].id;
+      setPaleLineBlend(fromPage, toPage, progress);
+    }
+    window.addEventListener('scroll', syncGrayLineWithPageScroll, { passive: true });
+    window.addEventListener('scrollend', () => {
+      const currentVerticalPage = getVerticalPage();
+      if (currentVerticalPage !== previousVerticalPage) {
+        resetScrollablePanels(previousVerticalPage);
+        previousVerticalPage = currentVerticalPage;
+      }
+      magicGrayLine.style.transition = '';
+      moveMagicGrayLineForPage(currentVerticalPage);
+      if (isPartnerSectionActive()) settlePartnerPage();
+      else if (Math.abs(currentVerticalPage.getBoundingClientRect().top) < 8) setPageStationary(true);
+    }, { passive: true });
+    requestAnimationFrame(() => {
+      const initialPage = getVerticalPage();
+      moveMagicGrayLineForPage(initialPage);
+      if (initialPage.id === 'partners') settlePartnerPage();
+      else setPageStationary(true);
+    });
+
+    document.querySelectorAll('a[href="#kanoxy"]').forEach((link) => {
+      link.addEventListener('click', () => {
+        partners.scrollTo({ left: 0, behavior: 'smooth' });
+        partnerAligned = false;
+        settlePartnerPage();
+      });
+    });
+
+    window.addEventListener('wheel', (event) => {
+      if (isPartnerSectionActive() && !partnerAligned && Math.abs(event.deltaY) > 0) {
+        event.preventDefault();
+      }
+    }, { capture: true, passive: false });
+
+    window.addEventListener('keydown', (event) => {
+      const verticalKeys = ['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End', ' ', 'Spacebar'];
+      if (isPartnerSectionActive() && !partnerAligned && verticalKeys.includes(event.key)) {
+        event.preventDefault();
+      }
+    }, { capture: true });
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+    partners.addEventListener('touchstart', (event) => {
+      touchStartX = event.touches[0].clientX;
+      touchStartY = event.touches[0].clientY;
+    }, { passive: true });
+    partners.addEventListener('touchmove', (event) => {
+      const deltaX = event.touches[0].clientX - touchStartX;
+      const deltaY = event.touches[0].clientY - touchStartY;
+      if (isPartnerSectionActive() && !partnerAligned && Math.abs(deltaY) > Math.abs(deltaX)) {
+        event.preventDefault();
+      }
+    }, { passive: false });
+  </script>
+</body>
+</html>
